@@ -165,3 +165,80 @@ while (i <= n) {
     i += 1;
 }
 
+/*
+Odrediti sumu brojeva od 1 do 5
+*/
+i = 1;
+let suma = 0; //Neutral za sbiranja je početna vrednost
+n = 5;
+while (i <= n) {
+    suma += i;
+    i += 1;
+}
+console.log(suma);
+
+// 1, 2, 3, 4, 5 -> 5*(5+1) / 2 = 5*6/2 = 30 / 2 = 15
+// Formula za sumiranje brojeva isključivo OD 1 do N
+let suma1 = (n * (n + 1)) / 2;
+console.log(suma1);
+
+/*
+Odrediti proizvod brojeva od 1 do 5
+*/
+i = 1;
+let proizvod = 1; //Neutral za množenje je početna vrednost
+n = 5;
+while (i <= n) {
+    proizvod *= i;
+    i += 1;
+}
+console.log(proizvod);
+
+// 11. Zadatak
+/*
+Odrediti sa koliko brojeva je deljiv uneti broj k
+*/
+/*
+let k = 10;
+1, 2, 5, 10
+Ispisaćemo 4 jer je 10 deljiv sa 4 broja 1, 2, 5 i 10
+
+i
+1 DA
+2 DA
+3 NE
+4 NE
+5 DA
+6 NE
+7 NE
+8 NE
+9 NE
+10 DA
+*/
+let k = 1;
+let brDeljivih = 0;
+i = 1;
+
+while (i <= k) {
+    //Proveravamo da li je k deljiv sa i
+    if (k % i == 0) {
+        brDeljivih++; //Isto kao da smo stavili brDeljivih += 1;
+    }
+    i += 1;
+}
+console.log(brDeljivih);
+
+//12. Zadatak
+/*
+Odrediti da li je dati prirodan broj n prost. Broj je prost ako je deljiv samo sa jedan i sa samim sobom.
+*/
+// Praktično se svodi na prethodni zadatak
+// Ako je broj delilaca == 2, to znači da je broj prost tj. deljiv samo samim sobom i broj 1
+// U suprotnom broj nije prost
+
+if (brDeljivih == 2) {
+    console.log("Broj je prost");
+}
+else {
+    console.log("Broj nije prost");
+}
