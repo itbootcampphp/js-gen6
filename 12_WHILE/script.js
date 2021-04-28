@@ -242,3 +242,35 @@ if (brDeljivih == 2) {
 else {
     console.log("Broj nije prost");
 }
+
+
+// Drugi nacin
+n = 24; // Broj cija se parnost ispituje
+i = 2; // Brojac koji ide po potencijalnim deliocima broja n
+while(i <= n / 2) {
+    if(n % i == 0) {
+        console.log(`Broj ${n} nije prost.`);
+        break; // Prekida izvrsenje petlje u kojoj se nasao
+    }
+    i++;
+}
+if(i > n / 2) {
+    console.log(`Broj ${n} je prost.`);
+}
+
+// Treci nacin
+n = 4; // Broj cija se parnost ispituje
+i = 2; // Brojac po potencijalnim deliocima broja n
+let prime = true; // Indikator (flag) da li je broj n prost
+while(prime && (i <= n / 2)) {
+    if(n % i == 0) {
+        prime = false;
+    }
+    i++;
+}
+if(prime) {
+    console.log(`Broj ${n} je prost.`);
+}
+else {
+    console.log(`Broj ${n} nije prost.`);
+}
