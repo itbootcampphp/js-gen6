@@ -98,3 +98,106 @@ for (let i = 0; i < brojevi.length; i++) {
     }
 }
 console.log(maksIndeks);
+
+// 12. Odrediti broj parnih elemenata sa neparnim indeksom.
+let nizBrojeva = [10, 16, 15, 17, 12, -14];
+let brElem = 0;
+for (let i = 0; i < nizBrojeva.length; i++) {
+    // indeks - i
+    // element - nizBrojeva[i]
+    if (nizBrojeva[i] % 2 == 0 && i % 2 != 0) {
+        brElem++;
+    }
+}
+console.log(brElem);
+
+// Promena znaka promenljive
+let a = 5;
+//a *= (-1); // a = a * (-1);
+a = -a;
+console.log(a);
+
+// 16. Dat je niz stavki za kupovinu (članovi niza su stringovi). Prolaskom kroz niz napraviti neuređenu listu i ispisati je u html dokument.
+let namirnice = ["krema", "voće", "povrće", "mleko", "jaja"];
+namirnice[0] = "sok";
+
+let lista = `<ul>`;
+for (let i = 0; i < namirnice.length; i++) {
+    lista += `<li> ${namirnice[i]} </li>`;
+}
+lista += `</ul>`;
+
+namirnice[0] = "hleba";
+
+document.body.innerHTML += lista;
+
+////////////////////////
+
+let rec = "abcdefg ! ?";
+console.log(rec.length);
+console.log(rec[0]);
+console.log(rec[5]);
+
+for (let i = 0; i < rec.length; i++) {
+    console.log(rec[i]);
+}
+
+// 21. Odrediti broj elemenata u nizu stringova čija je dužina veća od prosečne dužine svih stringova u nizu.
+let stringovi = ["ana", "milica", "jelena"];
+let sumaDuzina = 0;
+for (let i = 0; i < stringovi.length; i++) {
+    sumaDuzina += stringovi[i].length;
+}
+let arSrDuzina = sumaDuzina / stringovi.length;
+console.log(arSrDuzina);
+
+let brNatprosecnih = 0;
+for (let i = 0; i < stringovi.length; i++) {
+    let rec = stringovi[i];
+    let duzinaReci = rec.length;
+    if (duzinaReci > arSrDuzina) {
+        brNatprosecnih++;
+    }
+}
+console.log(brNatprosecnih);
+
+let sum = 0;
+for (let i = 0; i < stringovi.length; i++) {
+    let rec = stringovi[i];
+    let duzinaReci = rec.length;
+    sum += duzinaReci;
+    if (duzinaReci > sum / stringovi.length) {
+        brNatprosecnih++;
+    }
+}
+
+// 22. Odrediti broj elemenata u nizu stringova koji sadrže slovo 'a’. 
+stringovi = ["Miloš", "Milan", "Goran", "Aleksandar"];
+
+// 1. NAČIN
+// rec.includes("a") - vraća true ukoliko rec sadrži slovo "a", u suprotnom vraća false
+let brStringovaSaSlovomA = 0;
+for (let i = 0; i < stringovi.length; i++) {
+    let rec = stringovi[i];
+    if (rec.includes("a") || rec.includes("A")) {
+        brStringovaSaSlovomA++;
+    }
+}
+console.log(brStringovaSaSlovomA);
+
+// 2. NAČIN
+let brStringovaSaSlovomA2 = 0;
+// Ova for petlja ide element po element u nizu
+for (let i = 0; i < stringovi.length; i++) {
+    let rec = stringovi[i];
+    // Ova for petlja ide slovo po slovo u reči
+    for (let j = 0; j < rec.length; j++) {
+        //rec[j] je karakter u reči (slovo u reči)
+        if (rec[j] == "a" || rec[j] == "A") {
+            brStringovaSaSlovomA2++;
+            break; // j = rec.length;
+        }
+    }
+}
+console.log(brStringovaSaSlovomA2);
+
