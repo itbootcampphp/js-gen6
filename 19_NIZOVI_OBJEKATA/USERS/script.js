@@ -117,3 +117,35 @@ users.forEach(user => {
         console.log(user.username);
     }
 });
+
+// Ispisati naslove onih blogova koji imaju natprosečan broj pozitivnih ocena
+let avgGeneral; // Prosečna ocena u odnosu na SVE BLOGOVE svih korisnika
+let sumGeneral = 0;
+let countGeneral = 0;
+// 1. način određivanja prosečnog broja pozitivnih ocena
+// users.forEach(user => {
+//     user.blogs.forEach(blog => {
+//         sumGeneral += blog.likes;
+//         countGeneral++;
+//     });
+// });
+// avgGeneral = sumGeneral / countGeneral;
+// console.log(avgGeneral);
+
+// 2. način određivanja prosečnog broja pozitivnih ocena
+users.forEach(user => {
+    sumGeneral += user.sumLikes();
+    countGeneral += user.blogs.length;
+});
+
+avgGeneral = sumGeneral / countGeneral;
+console.log(avgGeneral);
+
+users.forEach(user => {
+    user.blogs.forEach(blog => {
+        if (blog.likes > avgGeneral) {
+            console.log(blog.title);
+        }
+    });
+});
+
