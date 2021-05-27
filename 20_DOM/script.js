@@ -193,3 +193,20 @@ console.log(link1.nextSibling);
 console.log(link1.nextSibling.nextSibling);
 
 link1.nextSibling.nextSibling.style.fontSize = "24px";
+
+let noviParagraf = document.createElement('p');
+noviParagraf.classList.add('klasa');
+noviParagraf.id = 'aj-di';
+noviParagraf.textContent = "Tekst novog paragrafa";
+
+let noviDiv = document.getElementById('div2');
+noviDiv.appendChild(noviParagraf);
+//document.body.appendChild(noviParagraf);
+
+let noviLink = document.createElement('a');
+noviLink.textContent = "Klikni me";
+noviLink.href="http://www.google.com";
+noviParagraf.appendChild(noviLink);
+// noviParagraf.removeChild(noviLink);
+
+// noviDiv.innerHTML += `<p class='klasa' id='aj-di'>Tekst novog paragrafa</p>`;
