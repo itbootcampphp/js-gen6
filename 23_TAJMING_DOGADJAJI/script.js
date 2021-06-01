@@ -67,6 +67,7 @@ b1.addEventListener('click', () => {
             let minuti = datum.getMinutes();
             let sekundi = datum.getSeconds();
             divIspis.innerHTML += `${sati}:${minuti}:${sekundi}`;
+            clock = null;
         }, 1000);
     }
 });
@@ -74,4 +75,50 @@ b1.addEventListener('click', () => {
 b2.addEventListener('click', () => {
     clearTimeout(clock);
     clock = null;
+});
+
+
+/*
+let clockInterval = null; 
+
+console.log("Prva linija koda");
+console.log("Druga linija koda");
+clockInterval = setInterval(() => {
+    console.log("Poziv callback funkcije");
+}, 1000);
+console.log("Cetvrta linija koda");
+console.log("Peta linija koda");
+
+setTimeout(() => {
+    clearInterval(clockInterval);
+}, 1000 * 5);
+console.log("Sedma linija koda");
+console.log("Osma linija koda");
+*/
+
+let b3 = document.getElementById('b3');
+let b4 = document.getElementById('b4');
+let divIspis2 = document.getElementById('ispis2');
+let clockPeriod = null;
+
+/*
+0   0.5   1    1.5   2   2.5   3   3.5   4     ...... 
+c1        c1   c2    c1  c2    c1  c2    c1    .....
+*/
+
+b3.addEventListener('click', () => {
+    if(clockPeriod === null) {
+        clockPeriod = setInterval(() => {
+            let datum = new Date();
+            let sati = datum.getHours();
+            let minuti = datum.getMinutes();
+            let sekunde = datum.getSeconds();
+            divIspis2.innerHTML = `${sati}:${minuti}:${sekunde}`;
+        }, 1000 / 5); // 5 puta u sekundi otkucava clockPeriod
+    }
+});
+
+b4.addEventListener('click', () => {
+    clearInterval(clockPeriod);
+    clockPeriod = null;
 });
