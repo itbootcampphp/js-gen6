@@ -44,6 +44,8 @@ let auto1 = new Auto("red", "Fiat", true);
 
 // Ovako DA
 // Pristup poljima isključivo preko getera i setera
+// console.log(auto1.boja()); //Ne radi pristup geteru sa ()
 console.log(auto1.boja); //geteru pristupamo ali bez zagrada
 auto1.boja = "white"; //pristupam seteru za boju, opet bez zagrada
 console.log(auto1.boja);
+
