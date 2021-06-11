@@ -1,0 +1,147 @@
+let divOrder = document.querySelector("#order");
+let formOrder = document.querySelector("#order form");
+let inputOrder = document.querySelector("#capacity");
+
+function getItems(resource, func) {
+    let request = new XMLHttpRequest();
+    request.addEventListener('readystatechange', function() {
+        if(this.readyState == 4 && this.status == 200) {
+            let data = JSON.parse(this.responseText);
+            func(data);
+        }
+        else if(this.readyState == 4) {
+            console.log("could not fetch data");
+        }
+    });
+    request.open('GET', resource);
+    request.send();
+}
+
+let click1 = event => {
+    event.preventDefault();
+    let capacity = inputOrder.value;
+    //console.log(capacity);
+
+    let itemsNoStock = [];
+    getItems('json/stock.json', data => {
+        // Logika da se dohvate objekti koji nisu na stanju
+        data.forEach(item => {
+            if(item.stock == 0) {
+                itemsNoStock.push(item.id);
+            }
+        });
+        //console.log(itemsNoStock);
+        getItems('json/weights.json', data => {
+            // Logika za tezine artikala
+            let totalWeight = 0;
+            data.forEach(item => {
+                //Da li niz itemsNoStock sadrzi item.id
+                if(itemsNoStock.includes(item.id)) {
+                    totalWeight += item.weight;
+                }
+            });
+            //console.log(totalWeight);
+            if(totalWeight > capacity) {
+                let pMessage = document.createElement('p');
+                pMessage.style.fontWeight = "bold";
+                pMessage.style.fontSize = "24px";
+                pMessage.textContent = "Not enough capacity in truck!!";
+                divOrder.appendChild(pMessage);
+            }
+            else {
+                getItems('json/prices.json', data => {
+                    // Logika za cene artikala
+                    let totalPrice = 0;
+                    data.forEach(item => {
+                        if(itemsNoStock.includes(item.id)) {
+                            totalPrice += item.price;
+                        }
+                    });
+                    let pMessage = document.createElement('p');
+                    pMessage.style.fontWeight = "bold";
+                    pMessage.style.fontSize = "24px";
+                    pMessage.textContent = `Total order price: ${totalPrice}RSD`;
+                    divOrder.appendChild(pMessage);
+                });
+            }
+        });
+    });
+}
+// Funkcija click1 je tacna, ali neprakticna
+// (callback hell)
+
+//formOrder.addEventListener('submit', click1);
+
+// Promis je objekat koji "ceka" asinhroni poziv
+// Zahvaljujuci njemu, postoje then() i catch() metode
+function getItemsReturnPromise(resource) {
+    return new Promise((resolve, reject) => {
+        let request = new XMLHttpRequest();
+        request.addEventListener('readystatechange', function() {
+            if(this.readyState == 4 && this.status == 200) {
+                let data = JSON.parse(this.responseText);
+                resolve(data);
+            }
+            else if(this.readyState == 4) {
+                reject("could not fetch data");
+            }
+        });
+        request.open('GET', resource);
+        request.send();
+    }); 
+}
+
+let click2 = event => {
+    event.preventDefault();
+    let capacity = inputOrder.value;
+    let itemsNoStock = [];
+    getItemsReturnPromise('json/stock.json')
+    .then((data) => {
+        data.forEach(item => {
+            if(item.stock == 0) {
+                itemsNoStock.push(item.id);
+            }
+        });
+        return getItemsReturnPromise('json/weights.json');
+    })
+    .then(data => {
+        let totalWeight = 0;
+        data.forEach(item => {
+            //Da li niz itemsNoStock sadrzi item.id
+            if(itemsNoStock.includes(item.id)) {
+                totalWeight += item.weight;
+            }
+        });
+        //console.log(totalWeight);
+        if(totalWeight > capacity) {
+            let pMessage = document.createElement('p');
+            pMessage.style.fontWeight = "bold";
+            pMessage.style.fontSize = "24px";
+            pMessage.textContent = "Not enough capacity in truck!!";
+            divOrder.appendChild(pMessage);
+        }
+        else {
+            return getItemsReturnPromise('json/prices.json');
+        }
+    })
+    .then(data => {
+        if(data !== undefined) {
+            let totalPrice = 0;
+            data.forEach(item => {
+                if(itemsNoStock.includes(item.id)) {
+                    totalPrice += item.price;
+                }
+            });
+            let pMessage = document.createElement('p');
+            pMessage.style.fontWeight = "bold";
+            pMessage.style.fontSize = "24px";
+            pMessage.textContent = `Total order price: ${totalPrice}RSD`;
+            divOrder.appendChild(pMessage);
+        }
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+}
+
+formOrder.addEventListener('submit', click2);
