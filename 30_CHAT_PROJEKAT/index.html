@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITBootcamp Chat</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Naslov četa -->
+    <header>
+        <h1>ITBootcamp Chat</h1>
+        <h2>Choose a chatroom</h2>
+    </header>
+
+    <!-- Dugmad za sobe (chatrooms) -->
+    <nav>
+        <button id="general" class="btn">#general</button>
+        <button id="js" class="btn">#js</button>
+        <button id="homeworks" class="btn">#homeworks</button>
+        <button id="tests" class="btn">#tests</button>
+    </nav>
+
+    <!-- Prostor za poruke -->
+    <section>
+        <ul>
+            <!-- Ovde će se nalaziti poruke -->
+        </ul>
+    </section>
+
+    <!-- Forma za unos poruke -->
+    <form id="formMessage">
+        <input type="text" placeholder="Your message..." id="inputMessage">
+        <input type="submit" value="Send" id="btnSend" class="btn">
+    </form>
+
+    <!-- Forma za promenu korisničkog imena -->
+    <form id="formUsername">
+        <input type="text" placeholder="Update username" id="inputUsername">
+        <input type="submit" value="Update" id="btnUpdate" class="btn">
+    </form>
+    
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyAfwAY1IxH7IyX4_V6av941_vqZSoAgTC0",
+        authDomain: "itbootcamp-js6.firebaseapp.com",
+        projectId: "itbootcamp-js6",
+        storageBucket: "itbootcamp-js6.appspot.com",
+        messagingSenderId: "241145215330",
+        appId: "1:241145215330:web:85a3a8ea31f8bba5a9943b"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    let db = firebase.firestore();
+    </script>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
